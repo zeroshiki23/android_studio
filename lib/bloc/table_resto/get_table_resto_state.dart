@@ -9,11 +9,12 @@ final class GetTableRestoLoading extends GetTableRestoState {}
 
 final class GetTableRestoLoaded extends GetTableRestoState {
   final List<TableRestoModel> listTableResto;
+
   GetTableRestoLoaded({required this.listTableResto});
 }
 
 final class GetTableRestoError extends GetTableRestoState {
   final String message;
+
   GetTableRestoError({required this.message});
 }
-
