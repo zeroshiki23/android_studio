@@ -6,13 +6,14 @@ class TableRestoModel {
   final String? table_status;
   final String? status;
 
-  TableRestoModel(
-      {required this.id,
-        required this.code,
-        required this.name,
-        required this.capacity,
-        required this.table_status,
-        required this.status});
+  TableRestoModel({
+    required this.id,
+    required this.code,
+    required this.name,
+    required this.capacity,
+    required this.table_status,
+    required this.status,
+  });
 
   factory TableRestoModel.fromJson(Map<String, dynamic> json) {
     return TableRestoModel(
@@ -23,5 +24,16 @@ class TableRestoModel {
       table_status: json['table_status'],
       status: json['status'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'code': code,
+      'name': name,
+      'capacity': capacity,
+      'table_status': table_status,
+      'status': status,
+    };
   }
 }

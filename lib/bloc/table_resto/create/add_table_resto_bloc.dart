@@ -15,20 +15,46 @@ class AddTableRestoBloc extends Bloc<AddTableRestoEvent, AddTableRestoState> {
 
   AddTableRestoBloc() : super(AddTableRestoInitial()) {
     on<AddTableRestoPressed>(_onAddTableRestoPressed);
-    // TODO: implement event handler
+    on<UpdateTableRestoPressed>(_onUpdateTableRestoPressed);
   }
 
   FutureOr<void> _onAddTableRestoPressed(
-      AddTableRestoPressed event, Emitter<AddTableRestoState> emit) async {
+    AddTableRestoPressed event,
+    Emitter<AddTableRestoState> emit,
+  ) async {
     final params = TableRestoParam(
-        code: event.tableRestoParam.code,
-        name: event.tableRestoParam.name,
-        capacity: event.tableRestoParam.capacity);
+      code: event.tableRestoParam.code,
+      name: event.tableRestoParam.name,
+      capacity: event.tableRestoParam.capacity,
+    );
 
     try {
       emit(AddTableRestoLoading());
-      TableRestoCreateResponse response =
-      await tableRestoRepository.addTableResto(params);
+      TableRestoCreateResponse response = await tableRestoRepository
+          .addTableResto(params);
+      emit(AddTableRestoSuccess(tabelRestoCreateResponse: response));
+    } catch (e) {
+      emit(AddTableRestoError(message: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onUpdateTableRestoPressed(
+    UpdateTableRestoPressed event,
+    Emitter<AddTableRestoState> emit,
+  ) async {
+    final params = TableRestoParam(
+      id: event.tableRestoParam.id,
+      code: event.tableRestoParam.code,
+      name: event.tableRestoParam.name,
+      capacity: event.tableRestoParam.capacity,
+      tableStatus: event.tableRestoParam.tableStatus,
+      status: event.tableRestoParam.status,
+    );
+
+    try {
+      emit(AddTableRestoLoading());
+      TableRestoCreateResponse response = await tableRestoRepository
+          .updateTableResto(params);
       emit(AddTableRestoSuccess(tabelRestoCreateResponse: response));
     } catch (e) {
       emit(AddTableRestoError(message: e.toString()));

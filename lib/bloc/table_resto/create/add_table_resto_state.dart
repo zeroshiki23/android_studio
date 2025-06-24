@@ -13,6 +13,12 @@ final class AddTableRestoSuccess extends AddTableRestoState {
   AddTableRestoSuccess({required this.tabelRestoCreateResponse});
 }
 
+final class UpdateTableRestoSuccess extends AddTableRestoState{
+  final TableRestoCreateResponse tableRestoCreateResponse;
+
+  UpdateTableRestoSuccess({required this.tableRestoCreateResponse});
+}
+
 final class AddTableRestoError extends AddTableRestoState {
   final String message;
 

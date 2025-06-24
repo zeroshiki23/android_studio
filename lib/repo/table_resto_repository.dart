@@ -8,12 +8,12 @@ import 'package:latihan_lab/response/table_resto_create_response.dart';
 class TableRestoRepository extends ApiClient {
   Future<List<TableRestoModel>> getTableRestos() async {
     try {
-      var response = await dio.get('table_resto_list');
-      debugPrint('Table Resto GET ALL:${response.data}');
+      var response = await dio.get('api/table_resto');
+      debugPrint('Table Resto GET ALL: ${response.data}');
       debugPrint(response.data.runtimeType.toString());
       List list = response.data;
       List<TableRestoModel> listTableResto =
-      list.map((element) => TableRestoModel.fromJson(element)).toList();
+          list.map((element) => TableRestoModel.fromJson(element)).toList();
       return listTableResto;
     } on DioException catch (e) {
       throw Exception(e);
@@ -21,13 +21,33 @@ class TableRestoRepository extends ApiClient {
   }
 
   Future<TableRestoCreateResponse> addTableResto(
+    TableRestoParam tableRestoParam,
+  ) async {
+    try {
+      var response = await dio.post(
+        'api/table_resto',
+        data: tableRestoParam.toJson(),
+      );
+      debugPrint('Table Resto POST: ${response.data}');
+      return TableRestoCreateResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<TableRestoCreateResponse> updateTableResto(
       TableRestoParam tableRestoParam,
       ) async {
     try {
-      var response = await dio.post("path", data: tableRestoParam.toJson());
-      debugPrint('TabelResto POST: ${response.data}');
+      debugPrint('UPDATE ID: ${tableRestoParam.id}');
+      var response = await dio.put(
+        'api/table_resto/${tableRestoParam.id}',
+        data: tableRestoParam.toJsonUpdate(),
+      );
+      debugPrint('Table Resto Update: ${response.data}');
       return TableRestoCreateResponse.fromJson(response.data);
     } on DioException catch (e) {
+      debugPrint('UPDATE ERROR: $e');
       throw Exception(e);
     }
   }

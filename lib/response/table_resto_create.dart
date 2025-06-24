@@ -4,7 +4,7 @@ class TableRestoCreate {
   final String? name;
   final int? capacity;
   final String? tablestatus;
-  final int? status;
+  final String? status;
 
   TableRestoCreate(
       {required this.id,
@@ -19,7 +19,7 @@ class TableRestoCreate {
         id: json["id"],
         code: json["code"],
         name: json["name"],
-        capacity: json["capacity"],
+        capacity: int.tryParse(json["capacity"].toString()) ?? 0,
         tablestatus: json["tablestatus"],
         status: json["status"]);
   }
